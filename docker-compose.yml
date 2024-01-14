@@ -6,4 +6,16 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8089:3000"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: benchmark
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+
+  adminer:
+    image: adminer
+    ports:
+      - "8090:8080"
