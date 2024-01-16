@@ -1,17 +1,22 @@
 {
+  "name": "backend-server",
   "private": true,
   "scripts": {
-    "prepare": "nitropack prepare",
-    "dev": "nitropack dev",
-    "build": "nitropack build",
+    "prepare": "pnpm nitropack prepare",
+    "dev": "pnpm nitropack dev",
+    "build": "pnpm nitropack build",
     "preview": "node .output/server/index.mjs",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "db:gen": "pnpm prisma generate",
+    "db:migrate": "pnpm prisma migrate dev --name init",
+    "postinstall": "pnpm prepare && pnpm db:migrate && pnpm db:gen"
   },
   "dependencies": {
-    "drizzle-orm": "^0.29.3",
-    "nitropack": "latest"
+    "@prisma/client": "5.8.0",
+    "nitropack": "^2.8.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.20.12"
+    "prisma": "^5.8.0"
   }
 }

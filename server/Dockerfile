@@ -1,32 +1,21 @@
-# Use an official Node runtime as the base image
-FROM node:20-alpine as build
+FROM node:20-alpine as base
+RUN npm install -g pnpm
 
-# Set the working directory in the container to /app
+FROM base as deps
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
+RUN pnpm install
 
-# Install any needed packages specified in package.json
-RUN npm install
-
-# Copy the current directory contents into the container at /app
-COPY . .
-
-# Build the app
-RUN npm run build
-
-# Start from a base image
-FROM node:20-alpine
-
-# Create app directory
+FROM base as build
 WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN pnpm build .
 
-# Bundle app source
-COPY --from=build /app/.output ./output
+FROM base as runner
+WORKDIR /app
+COPY --from=build /app/.output ./.output
 
-# Your app binds to port 8080 so you'll use the EXPOSE instruction to have it mapped by the docker daemon
-EXPOSE 8080
+EXPOSE 3000
 
-# Define the command to run your app using CMD which defines your runtime
-CMD [ "node", "./output/server/index.mjs" ]
+CMD ["node", "./.output/server/index.mjs"]

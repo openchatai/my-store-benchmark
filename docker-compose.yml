@@ -1,19 +1,30 @@
 version: "3"
+networks:
+  default:
+    name: benchmark
+    external: true
 
 services:
-  app:
+  server:
     build:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "8089:3000"
-
+      - "3000:3000"
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
   postgres:
     image: postgres
     environment:
       POSTGRES_DB: benchmark
       POSTGRES_USER: dbuser
       POSTGRES_PASSWORD: dbpass
+    ports:
+      - "5432:5432"
 
   adminer:
     image: adminer

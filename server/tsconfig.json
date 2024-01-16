@@ -1,3 +1,6 @@
 {
-  "extends": "./.nitro/types/tsconfig.json"
+  "extends": "./dist/types/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/server",
+  }
 }
