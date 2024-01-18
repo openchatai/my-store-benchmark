@@ -1,13 +1,7 @@
-FROM node:alpine as BUILD
-WORKDIR /build
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable
-COPY ./ ./
-RUN pnpm install --frozen-lockfile
-RUN pnpm build
-
-FROM node:alpine
+FROM node:alpine as base
 WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build
 EXPOSE 3000
-COPY --from=BUILD /build/.output /app
-CMD ["node", "./server/index.mjs"]
+CMD ["node",".output/server/index.mjs"]

@@ -1,24 +1,5 @@
 version: "3"
-networks:
-  default:
-    name: benchmark
-    external: false
-
 services:
-  # server:
-  #   build:
-  #     context: ./server
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - postgres
-  dashboard:
-    build:
-      context: ./dashboard
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
   postgres:
     image: postgres
     environment:
@@ -29,6 +10,30 @@ services:
       - "5432:5432"
     volumes:
       - postgres:/var/lib/postgresql/data:rw
-
+    networks:
+      - store_network
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - store_network
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    restart: always
+    networks:
+      - store_network
 volumes:
   postgres:
+networks:
+  store_network:
+    driver: bridge
+    name: store_network

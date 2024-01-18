@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("NITRO_DATABASE_URL")
+  url      = "postgresql://dbuser:dbpass@postgres:5432/benchmark?schema=public"
 }
 
 // Each prodcut should have a categories or category
@@ -33,7 +33,7 @@ model Category {
 
 // Orders
 model Order {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
