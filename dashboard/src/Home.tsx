@@ -1,8 +1,6 @@
-import { MoreHorizontalIcon, Package2Icon } from "lucide-react";
+import { Package2Icon } from "lucide-react";
 import { Link } from "wouter";
-import { Button } from "./@/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./@/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./@/ui/dropdown-menu";
 import { Card, CardContent, CardHeader, CardTitle } from "./@/ui/card";
 import useSWR from "swr";
 import { getCategoriesCount, getProductsCount, getTotalPricesOfAllProducts, listProducts } from "./data";
@@ -64,7 +62,6 @@ export default function HomePage() {
                                 <TableHead className="min-w-[150px]">Name</TableHead>
                                 <TableHead className="hidden md:table-cell">Date</TableHead>
                                 <TableHead className="text-right">Price</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -75,20 +72,6 @@ export default function HomePage() {
                                         <TableCell>{product.name}</TableCell>
                                         <TableCell className="hidden md:table-cell">{new Date(product.createdAt).toDateString()}</TableCell>
                                         <TableCell className="text-right">{product.price} $</TableCell>
-                                        <TableCell className="text-right">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button size="icon" variant="ghost">
-                                                        <MoreHorizontalIcon className="w-4 h-4" />
-                                                        <span className="sr-only">Actions</span>
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem>View order</DropdownMenuItem>
-                                                    <DropdownMenuItem>Customer details</DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </TableCell>
                                     </TableRow>
                                 })
                             }

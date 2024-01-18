@@ -17,9 +17,9 @@ model Product {
   price       Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  deletedAt   DateTime?
   categories  Category[]
   description String?
+  quantity    Int        @default(0)
 }
 
 model Category {
@@ -27,7 +27,13 @@ model Category {
   name        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  deletedAt   DateTime?
   products    Product[]
   description String?
+}
+
+// Orders
+model Order {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

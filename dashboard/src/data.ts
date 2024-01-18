@@ -64,7 +64,13 @@ export async function getCategoriesCount() {
 export async function createCategory(data: Partial<Category>) {
     return await categoriesInstance.post('/create', data)
 }
+type CategoryWithProducts = Category & { products: Product[] }
 export async function listCategories() {
-    type CategoryWithProducts = Category & { products: Product[] }
     return (await categoriesInstance.get<CategoryWithProducts[]>('')).data
+}
+// /products/{id}/categorize
+export async function categorizeProduct(categoryId: string, productId: string) {
+    return (await productsInstance.post<CategoryWithProducts[]>(`/${productId}/categorize`, {
+        "categoryId": categoryId
+    })).data
 }
