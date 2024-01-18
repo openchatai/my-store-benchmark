@@ -7,10 +7,8 @@
     "lint": "eslint --ext .ts . && prettier -c .",
     "lint:fix": "eslint --fix --ext .ts . && prettier -w -c .",
     "prepare": "nitro prepare",
-    "readme": "jiti scripts/update-readme.ts",
     "start": "node .output/server/index.mjs",
     "test": "pnpm lint",
-    "test:deployment": "jiti ./scripts/test-deployments.ts",
     "db:gen": "pnpm prisma generate",
     "db:migrate": "pnpm prisma migrate dev --name init",
     "postinstall": "pnpm run db:migrate && pnpm run db:gen"
