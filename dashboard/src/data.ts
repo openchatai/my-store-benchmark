@@ -49,7 +49,7 @@ export async function deleteProduct(id: string) {
 }
 
 export async function ping() {
-    return (await baseInstane.get<'200'>('')).data
+    return (await baseInstane.get<200>('')).data
 }
 export async function getProductsCount() {
     return (await productsInstance.get<number>('count')).data

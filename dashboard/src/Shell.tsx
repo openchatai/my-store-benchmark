@@ -2,6 +2,9 @@ import React from 'react';
 import { Link, useRoute } from 'wouter';
 import { LucideIcon, Package2Icon, ShoppingCartIcon, Table } from "lucide-react"
 import { cn } from './@/lib/utils';
+import useSWR from 'swr';
+import { ping } from './data';
+import { Button } from './@/ui/button';
 
 function NavLink({ to, label, Icon }: {
     to: string,
@@ -23,6 +26,24 @@ function NavLink({ to, label, Icon }: {
 export function MainShell({ children }: {
     children: React.ReactNode
 }) {
+    const { data } = useSWR('ping', ping, {
+        refreshInterval: 1000,
+        revalidateOnFocus: true,
+    });
+    const isAlive = data === 200;
+    console.log(isAlive, data)
+    if (!isAlive) {
+        return (
+            <div className="flex items-center justify-center h-screen w-screen">
+                <div className="flex flex-col items-center gap-2">
+                    <h1 className="text-2xl font-semibold">Server is down</h1>
+                    <Button onClick={() => window.location.reload()}>
+                        Reload
+                    </Button>
+                </div>
+            </div>
+        )
+    }
     return (
         <main className='h-svh w-svw grid overflow-hidden lg:grid-cols-[280px_1fr]'>
             <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
