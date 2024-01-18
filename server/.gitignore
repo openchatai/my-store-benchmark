@@ -1,7 +1,11 @@
 node_modules
-*.log*
 .nitro
-.cache
 .output
-.env
 dist
+*.log*
+
+.vercel
+.netlify
+.vercel_build_output
+.firebase
+.vercel

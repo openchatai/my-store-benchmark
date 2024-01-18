@@ -1,5 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+let dbInstance = new PrismaClient();
 
 export function useDb() {
-    return new PrismaClient();
+    if (!dbInstance) {
+        dbInstance = new PrismaClient();
+    }
+    return dbInstance;
 }
