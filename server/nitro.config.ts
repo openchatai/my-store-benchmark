@@ -1,14 +1,5 @@
-import { createRequire } from "node:module";
 import { defineNitroConfig } from "nitropack/config";
-
-const require = createRequire(import.meta.url);
-const nitroPkg = require("nitropack/package.json");
-
 export default defineNitroConfig({
-  runtimeConfig: {
-    nitroVersion: nitroPkg.version,
-    allowedOrigins: ['*'],
-  },
   routeRules: {
     "*": {
       cors: true,

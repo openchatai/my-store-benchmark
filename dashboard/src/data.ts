@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BACKEND_BASE_URL = 'http://localhost:3000/';
+const BACKEND_BASE_URL = 'http://localhost:3001/';
 
 type Product = {
     id: number,

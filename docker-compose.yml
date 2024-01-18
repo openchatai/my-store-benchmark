@@ -5,6 +5,14 @@ networks:
     external: false
 
 services:
+  # server:
+  #   build:
+  #     context: ./server
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - postgres
   dashboard:
     build:
       context: ./dashboard
@@ -19,8 +27,8 @@ services:
       POSTGRES_PASSWORD: dbpass
     ports:
       - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data:rw
 
-  adminer:
-    image: adminer
-    ports:
-      - "8090:8080"
+volumes:
+  postgres:
