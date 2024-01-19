@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BACKEND_BASE_URL = 'http://localhost:3000/';
 
-type Product = {
+export type ProductResponseType = {
     id: number,
     name: string,
     price: number,
@@ -32,15 +32,13 @@ const baseInstane = axios.create({
 })
 
 export async function listProducts() {
-    return (await productsInstance.get<Product[]>('')).data
+    return (await productsInstance.get<ProductResponseType[]>('')).data
 }
 
-export async function updateProduct(id: string, data: Partial<Product>) {
-    return await productsInstance.post(id, {
-        body: JSON.stringify(data),
-    })
+export async function updateProduct(id: string, data: Partial<ProductResponseType>) {
+    return await productsInstance.put(id, data)
 }
-export async function createProduct(data: Partial<Product>) {
+export async function createProduct(data: Partial<ProductResponseType>) {
     return await productsInstance.post('/create', data)
 }
 
@@ -64,7 +62,7 @@ export async function getCategoriesCount() {
 export async function createCategory(data: Partial<Category>) {
     return await categoriesInstance.post('/create', data)
 }
-type CategoryWithProducts = Category & { products: Product[] }
+type CategoryWithProducts = Category & { products: ProductResponseType[] }
 export async function listCategories() {
     return (await categoriesInstance.get<CategoryWithProducts[]>('')).data
 }

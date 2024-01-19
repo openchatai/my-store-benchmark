@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { listCategories } from './data'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './@/ui/Accordion'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './@/ui/table'
+import { EmptyState } from './EmptyState'
 
 function CategoriesPage() {
   const { data } = useSWR('categories', listCategories)
@@ -22,7 +23,7 @@ function CategoriesPage() {
       </header>
       <main className="flex flex-1 flex-col gap-4 p-2 md:gap-8 md:p-4 overflow-auto">
         <Accordion className='flex flex-col gap-2' type='multiple'>
-          {
+          {!data ? <EmptyState title='there is no categories here yet' /> : data.length === 0 ? <EmptyState title='there is no categories here yet' /> :
             data?.map((ct, index) => {
               return <AccordionItem key={index} value={index.toString()}>
                 <AccordionTrigger>
