@@ -94,7 +94,7 @@ function RenderProduct({ product }: { product: ProductResponseType }) {
                             defaultValues={{
                                 name: product.name,
                                 price: product.price,
-                                description: product.descpripion || '',
+                                description: product.description || '',
                             }}
                             inCludeCategory={false}
                             onSubmit={async (data) => {

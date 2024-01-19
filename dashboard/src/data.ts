@@ -9,7 +9,7 @@ export type ProductResponseType = {
     createdAt: string,
     updatedAt: string
     deletedAt: string
-    descpripion?: string
+    description?: string
 }
 
 type Category = {
@@ -18,7 +18,7 @@ type Category = {
     createdAt: string,
     updatedAt: string
     deletedAt: string
-    descpripion?: string
+    description?: string
 }
 // {{DUMMY_STORE_BASE}}/products
 const productsInstance = axios.create({
